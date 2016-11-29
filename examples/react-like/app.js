@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, RouterModes } from 'x-react-router';
-import CommonPages from '../__com__';
-import P1 from './p1';
-import P2 from './p2';
-import P3 from './p3';
+import CommonPages from '@com';
+import P1 from '@com/profiles/p1';
+import P2 from '@com/profiles/p2';
+import P3 from '@com/profiles/p3';
 
 const { Home, Profile, Setting } = CommonPages;
 

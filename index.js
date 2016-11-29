@@ -1,12 +1,15 @@
 import fs from 'fs';
 import path from 'path';
 import koa from 'koa';
+import convert from 'koa-convert';
 import koaStatic from 'koa-static-cache';
 import Webpack from 'webpack';
 import { devMiddleware } from 'koa-webpack-middleware';
 import webpackConfig from './webpack.config';
 
 const app = new koa();
+
+app.use(convert(koaStatic(path.join(__dirname, 'static'))));
 
 const compiler = Webpack(webpackConfig);
 
@@ -19,10 +22,11 @@ app.use(devMiddleware(compiler, {
 
 const examples = path.join(__dirname, 'examples');
 const items = [];
-fs.readdirSync(examples).forEach(function (file) {
-  if (fs.statSync(path.join(examples, file)).isDirectory() && file !== "__com__") {
+fs.readdirSync(examples).forEach(file => {
+  const F = path.join(examples, file, 'index.html');
+  if (fs.existsSync(F)) {
     items.push(`<li><a href="/${file}">${file}</a></li>`);
-    app.use(gen('/' + file + '/?.*', path.join(examples, file + '/index.html')));
+    app.use(gen('/' + file + '/?.*', F));
   }
 });
 // Generate the Index
@@ -34,7 +38,7 @@ app.use((ctx, next) => {
   }
 });
 
-app.listen(6060, function () {
+app.listen(6060, () => {
   console.log('Server listening on http://localhost:6060, Ctrl+C to stop')
 });
 

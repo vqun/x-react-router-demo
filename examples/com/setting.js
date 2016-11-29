@@ -12,7 +12,7 @@ export default class Setting extends Component {
     const prefix = this.props['link-prefix'];
     return (
       <div>
-        <h1>Hello, Setting</h1>
+        <h2>Hello, Setting</h2>
         <p><Link to={`${prefix}/home`}>To Home</Link></p>
         <p><Link to={`${prefix}/profile`}>To Profile</Link></p>
       </div>

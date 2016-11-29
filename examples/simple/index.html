@@ -3,10 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <title>Simple</title>
+  <link rel="stylesheet" href="/highlight/styles/atelier-plateau-dark.css">
+  <link rel="stylesheet" href="/com/highlight.patch.css">
+  <script src="/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  <script type="text/javascript" src="/build/base.js"></script>
   <script type="text/javascript" src="/build/simple.js"></script>
 </head>
 <body>
   <h1><a href="/">Back To Index</a></h1>
   <div id="container"></div>
+  <pre><code class="javascript">
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import { Router, Route, RouterModes } from 'x-react-router';
+  import CommonPages from '@com';
+  import P1 from '@com/profiles/p1';
+  import P2 from '@com/profiles/p2';
+  import P3 from '@com/profiles/p3';
+
+  const { Home, Profile, Setting } = CommonPages;
+
+  function run() {
+    const Footer = (
+      &lt;footer&gt;
+        &lt;a href="https://www.baidu.com"&gt;Baidu.com&lt;/a&gt;
+        &lt;a href="https://www.taobao.com"&gt;Taobao.com&lt;/a&gt;
+        &lt;a href="https://www.qq.com"&gt;Tencent.com&lt;/a&gt;
+      &lt;/footer&gt;
+    );
+    const prefix = '/simple';
+    ReactDOM.render(
+  </code></pre>
+  <pre><code class="html">
+      &lt;Router prefix={prefix}&gt;
+        &lt;Route path="/(home)?" component={Home} link-prefix={prefix} /&gt;
+        &lt;Route path="/(home)?" component={Footer} /&gt;
+        &lt;Route path="/profile" component={Profile} link-prefix={prefix}&gt;
+          &lt;Route path="p1" component={P1} /&gt;
+          &lt;Route path="p2" component={P2} /&gt;
+          &lt;Route path="p3" component={P3} /&gt;
+        &lt;/Route&gt;
+        &lt;Route path="/setting" component={Setting} link-prefix={prefix} /&gt;
+      &lt;/Router&gt;
+  </code></pre>
+  <pre><code class="javascript">
+      , document.getElementById('container'));
+  }
+
+  function init() {
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      return run();
+    }
+    if (window.addEventListener) {
+      window.addEventListener('DOMContentLoaded', run);
+    } else {
+      window.attachEvent('onload', run);
+    }
+  }
+
+  // Run the application when DOM is ready
+  init();
+  </code></pre>
 </body>
 </html>
